@@ -1,0 +1,112 @@
+
+@property --percentage {
+    initial-value: 0;
+    inherits: false;
+    syntax: '<number>';
+  }
+  
+  
+  @keyframes updatePerc {
+    to {
+      --percentage: 100;
+    }
+  }
+  
+  :root {
+    animation: updatePerc linear; 
+    animation-timeline: scroll();
+    
+   --primary-color: hsl(calc(var(--percentage, 0) * 3.6), 45%, 56%);
+   --angle: calc(var(--percentage, 0) * 3.6deg);
+   --txt: calc(var(--percentage));
+  }
+  
+
+  .progress:after {
+    background: conic-gradient(
+      var(--primary-color) var(--angle),
+      transparent var(--angle)
+    ); 
+  }
+  
+  .progress__txt:after {
+    counter-reset: myCounter var(--txt);
+    content: counter(myCounter) "%";
+    display: block;
+  }
+  
+  
+ 
+  .progress {
+    --borderWidth: 10px;
+      --size: 8rem;
+    border-radius:100%;  
+      width: var(--size);
+      height: var(--size);
+      margin: 60px auto;
+      border: 1px solid white;
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    top: 2rem;
+    right: 2rem;
+    z-index: 2;
+    font-size: 2em;
+  }
+  .progress:before {
+    border-radius: 100%;
+      content: '';
+      width: calc(var(--size) - var(--borderWidth) );
+      height: calc(var(--size) - var(--borderWidth));
+      position: absolute;
+      background: #222;
+      z-index: 1;
+  }
+  .progress:after {
+    border-radius: 100%;
+      content: '';
+      position: absolute;
+      top: calc(var(--borderWidth)  / -2);
+      left: calc(var(--borderWidth) / -2);
+      width: calc(var(--size) + var(--borderWidth));
+      height: calc(var(--size) + var(--borderWidth))
+  }
+  
+  .progress__txt {
+    z-index: 2;
+  }
+  
+  main{
+    width: min(90%, 80ch);
+    margin-inline: auto;
+  
+  }
+  img {
+    width: 100%;
+  }
+  body{
+    margin: 0;
+    padding: 0;
+    padding-top: 2rem;
+    font-family: sans-serif;
+    background: #222;
+    color: #bbb;
+  }
+  
+  h1 {
+    width: 100%;   
+    position:sticky;
+    top: 0;
+    color:  var(--primary-color);
+    background: #222;
+    font-size: 5em;
+    line-height: 0.9;
+    z-index: 1;
+    padding-block: 2rem;
+    margin-inline: -2em;
+    padding-inline: 2em;
+  }
+  p{
+    line-height: 1.75;
+  }
